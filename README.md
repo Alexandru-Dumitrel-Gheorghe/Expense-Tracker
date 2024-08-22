@@ -48,7 +48,7 @@ Expense Tracker is a simple web application that allows users to track their inc
 4. Start the backend server:
 
    ```bash
-   npm start
+   node server.js
    ```
 
 5. Navigate to the frontend directory and install dependencies:
