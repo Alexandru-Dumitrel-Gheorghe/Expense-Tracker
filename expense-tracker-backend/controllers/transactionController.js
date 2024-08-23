@@ -1,5 +1,6 @@
 const Transaction = require("../models/Transaction");
 
+// Obținerea tuturor tranzacțiilor pentru un utilizator
 const getTransactions = async (req, res) => {
   try {
     const transactions = await Transaction.find({ user: req.user.id });
@@ -10,6 +11,7 @@ const getTransactions = async (req, res) => {
   }
 };
 
+// Adăugarea unei noi tranzacții
 const addTransaction = async (req, res) => {
   const { title, amount, category, type } = req.body;
 
@@ -30,6 +32,7 @@ const addTransaction = async (req, res) => {
   }
 };
 
+// Actualizarea unei tranzacții
 const updateTransaction = async (req, res) => {
   const { title, amount, category, type } = req.body;
 
@@ -57,6 +60,7 @@ const updateTransaction = async (req, res) => {
   }
 };
 
+// Ștergerea unei tranzacții
 const deleteTransaction = async (req, res) => {
   try {
     let transaction = await Transaction.findById(req.params.id);

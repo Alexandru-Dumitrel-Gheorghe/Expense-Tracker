@@ -2,19 +2,14 @@ const express = require("express");
 const {
   registerUser,
   loginUser,
-  resetPasswordRequest,
   resetPassword,
 } = require("../controllers/authController");
 
 const router = express.Router();
 
+// Definește rutele și callback-urile lor
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-
-// Ruta pentru a cere resetarea parolei
-router.post("/reset-password-request", resetPasswordRequest);
-
-// Ruta pentru a reseta efectiv parola
-router.post("/reset-password", resetPassword);
+router.post("/reset-password", resetPassword); // Verifică dacă această funcție există în controller
 
 module.exports = router;
