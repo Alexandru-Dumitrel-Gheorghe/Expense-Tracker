@@ -9,7 +9,6 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Definirea rutelor pentru tranzacții
 router.get("/", authMiddleware, getTransactions);
 router.post("/", authMiddleware, addTransaction);
 router.put("/:id", authMiddleware, updateTransaction);

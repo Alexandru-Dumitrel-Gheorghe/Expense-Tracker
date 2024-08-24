@@ -69,7 +69,7 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ msg: "User not found" });
     }
 
-    // Generare token resetare și trimitere email (doar un exemplu simplu, implementarea reală ar fi mai complexă)
+    // Implement password reset logic here
     res.json({ msg: "Password reset link sent to your email." });
   } catch (err) {
     console.error(err.message);

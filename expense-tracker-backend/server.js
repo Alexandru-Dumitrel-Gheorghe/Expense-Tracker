@@ -1,10 +1,13 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const connectDB = require("./config/db");
 
 // Încărcăm variabilele de mediu
 dotenv.config();
+
+// Conectare la MongoDB
+connectDB();
 
 // Inițializăm aplicația Express
 const app = express();
@@ -13,26 +16,19 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // Asigură-te că această origine este corectă
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// Conectare la MongoDB
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
-
 // Rutele
 const authRoutes = require("./routes/authRoutes");
+const budgetRoutes = require("./routes/budgetRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 
 app.use("/auth", authRoutes);
+app.use("/budgets", budgetRoutes);
 app.use("/transactions", transactionRoutes);
 
 // Pornim serverul
