@@ -73,7 +73,7 @@ const deleteTransaction = async (req, res) => {
       return res.status(401).json({ msg: "Not authorized" });
     }
 
-    await Transaction.findByIdAndRemove(req.params.id);
+    await Transaction.findByIdAndDelete(req.params.id); // Corrected to use findByIdAndDelete
     res.json({ msg: "Transaction removed" });
   } catch (error) {
     console.error(error.message);
