@@ -1,45 +1,47 @@
-// server.js
 const express = require("express");
-const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 const cors = require("cors");
-const connectDB = require("./config/db");
+const dotenv = require("dotenv");
+const path = require("path");
 
-// Load environment variables
+// Load environment variables from .env file
 dotenv.config();
 
-// Connect to MongoDB
-connectDB();
-
-// Initialize Express app
+// Initialize the app
 const app = express();
 
 // Middleware
-app.use(express.json());
-
-// Configure CORS
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://numele-tau-de-domeniu.com"], // Permite originile frontend-ului
+    origin: [
+      "http://localhost:3000",
+      "https://expense-tracker-chi-pink.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.use(express.json());
+
+// Database connection
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
-const budgetRoutes = require("./routes/budgetRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
-const reportRoutes = require("./routes/reportRoutes");
 const todoRoutes = require("./routes/todoRoutes");
 
 app.use("/auth", authRoutes);
-app.use("/budgets", budgetRoutes);
 app.use("/transactions", transactionRoutes);
-app.use("/reports", reportRoutes);
 app.use("/todos", todoRoutes);
 
-// Start the server
+// Define the port
 const PORT = process.env.PORT || 5000;
+
+// Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 module.exports = app;
